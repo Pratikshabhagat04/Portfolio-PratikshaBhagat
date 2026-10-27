@@ -385,11 +385,20 @@ function initPhotoCustomizer() {
   const tagPhotoPos = document.getElementById("tagPhotoPos");
   const posPresets = document.querySelectorAll("#posPresets .preset-pill");
 
-  // 1. Restore Custom Image from localStorage
+  // 1. Clear any previous test image in localStorage so new profile.jpg displays immediately
+  if (!localStorage.getItem("pb_official_photo_v1")) {
+    localStorage.removeItem("pb_custom_profile_image");
+    localStorage.setItem("pb_official_photo_v1", "true");
+  }
+
   const savedImage = localStorage.getItem("pb_custom_profile_image");
   if (savedImage) {
     allProfileImgs.forEach(img => {
       img.src = savedImage;
+    });
+  } else {
+    allProfileImgs.forEach(img => {
+      img.src = "assets/images/profile.jpg";
     });
   }
 
